@@ -4,31 +4,31 @@ Prerequisites
 Before starting, ensure you have Python and Django installed on your system.
 
 bash
-Copy code
+
 pip install django
 Additionally, install Django Channels and ASGI:
 
 bash
-Copy code
+
 pip install channels
 Step 1: Create a Django Project
 Start by creating a new Django project:
 
 bash
-Copy code
+
 django-admin startproject websocket_project
 cd websocket_project
 Step 2: Create a Django App
 Create a new Django app that will handle WebSocket communication.
 
 bash
-Copy code
+
 python manage.py startapp chat
 Step 3: Configure Django Channels
 In the settings.py file of your project, modify it to add channels and configure the ASGI application.
 
 python
-Copy code
+
 # websocket_project/settings.py
 
 INSTALLED_APPS = [
@@ -55,7 +55,7 @@ CHANNEL_LAYERS = {
 Next, create the asgi.py file if it's not already present:
 
 python
-Copy code
+
 # websocket_project/asgi.py
 
 import os
@@ -80,7 +80,7 @@ Create a consumer to handle WebSocket connections. Consumers are similar to Djan
 In chat/consumers.py:
 
 python
-Copy code
+
 # chat/consumers.py
 
 import json
@@ -128,7 +128,7 @@ Step 5: Define Routing
 In chat/routing.py, define the WebSocket routing for the ChatConsumer.
 
 python
-Copy code
+
 # chat/routing.py
 
 from django.urls import re_path
@@ -141,7 +141,7 @@ Step 6: Create a Simple Template to Test WebSocket
 Create an HTML file that will connect to the WebSocket. In chat/templates/chat/room.html:
 
 html
-Copy code
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -176,7 +176,7 @@ Step 7: Create Views and URL Patterns
 In chat/views.py, create a simple view to render the chat page:
 
 python
-Copy code
+
 # chat/views.py
 
 from django.shortcuts import render
@@ -186,7 +186,7 @@ def room(request):
 Add the URL route in chat/urls.py:
 
 python
-Copy code
+
 # chat/urls.py
 
 from django.urls import path
@@ -198,7 +198,7 @@ urlpatterns = [
 In the project’s urls.py, include the chat URLs:
 
 python
-Copy code
+
 # websocket_project/urls.py
 
 from django.contrib import admin
@@ -212,7 +212,7 @@ Step 8: Run the Project
 Apply migrations and run the server:
 
 bash
-Copy code
+
 python manage.py migrate
 python manage.py runserver
 Open your browser and go to http://localhost:8000/chat/. You should see the WebSocket chat interface. You can now send and receive messages using WebSockets.
@@ -224,10 +224,10 @@ Step 10: Deploy with Daphne
 For production, Django Channels uses Daphne to run the ASGI application. Install Daphne:
 
 bash
-Copy code
+
 pip install daphne
 Then, run Daphne:
 
 bash
-Copy code
+
 daphne -b 0.0.0.0 -p 8000 websocket_project.asgi:application
